@@ -8,7 +8,7 @@
 
 // Your code:
 const parametrize = (input) => {
-    return input.toLowerCase().replace(/\s/g, "-");
+    return input.toLowerCase().replaceAll(" ", "-");
 };
 
 // 2 =================================

@@ -8,7 +8,7 @@
 
 // Your code:
 const drawTriangle = (length = 5) => {
-  for(let i=1; i <= length; i++) console.log("* ".repeat(i).trim());
+  for(let i=0; i < length; i++) console.log("* ".repeat(i + 1).trim());
 };
 
 // 2#  ========== BONUS =======================
@@ -28,11 +28,7 @@ const drawTriangle = (length = 5) => {
 // Your code:
 const drawJavascriptWord = (word = "javascript") => {
   word = word.toUpperCase();
-  for(let i=0; i < word.length; i++) 
-  {
-      let s = "*".repeat(word.length - i - 1).split("").join(" "), l = word.slice(-i - 1).split("").join(" ");
-      console.log(s ? s + " " + l : l);
-  }
+  for(let i=0; i < word.length; i++) console.log("* ".repeat(word.length - i - 1).trim() + " " + word.slice(-i - 1).split("").join(" "));
 };
 
 
