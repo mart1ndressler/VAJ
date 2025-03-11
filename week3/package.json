@@ -1,0 +1,17 @@
+{
+  "name": "template-lab-2024s-03",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch index.js",
+    "start": "node index.js"
+  },
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "express": "5.0.1",
+    "node-fetch": "^3.3.2"
+  }
+}
