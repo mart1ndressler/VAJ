@@ -47,36 +47,42 @@ const start = performance.now();
 // ...
 
 const getPlanets = async () => {
-    const response = await axios.get("https://swapi.profiq.com/api/planets");
-    return response.data.results;
+  const response = await axios.get("https://swapi.profiq.com/api/planets");
+  return response.data.results;
 };
-  
-const getResidentMass = async (url) => {
-    const res = await axios.get(url);
-    const mass = res.data.mass;
-    return mass !== "unknown" ? parseFloat(mass.replace(",", "")) : null;
-};
-  
-const calculateAverageMass = async (planet) => {
-    if (planet.residents.length === 0) return "No residents";
-    const masses = await Promise.all(planet.residents.map(getResidentMass));
-    const validMasses = masses.filter((m) => m !== null && !isNaN(m));
 
-    if (validMasses.length === 0) return "unknown";
-    const average = validMasses.reduce((sum, mass) => sum + mass, 0) / validMasses.length;
-    return average.toFixed(1);
+const getResidentMass = async (url) => {
+  const res = await axios.get(url);
+  const mass = res.data.mass;
+  return mass !== "unknown" ? parseFloat(mass.replace(",", "")) : null;
+};
+
+const calculateAverageMass = async (planet) => {
+  if (planet.residents.length === 0) return "No residents";
+  const masses = await Promise.all(planet.residents.map(getResidentMass));
+  const validMasses = masses.filter((m) => m !== null && !isNaN(m));
+
+  if (validMasses.length === 0) return "unknown";
+  const average =
+    validMasses.reduce((sum, mass) => sum + mass, 0) / validMasses.length;
+  return average.toFixed(1);
 };
 
 const main = async () => {
-    const planets = await getPlanets();
-    const results = await Promise.all(planets.map(async (planet) => ({planet,averageMass: await calculateAverageMass(planet),})));
-  
-    results.forEach(({ planet, averageMass }) => {
-      console.log(`Planet: ${planet.name}`);
-      console.log(`Number of residents: ${planet.residents.length}`);
-      console.log(`Average mass of resident: ${averageMass}`);
-      console.log("");
-    });
+  const planets = await getPlanets();
+  const results = await Promise.all(
+    planets.map(async (planet) => ({
+      planet,
+      averageMass: await calculateAverageMass(planet),
+    })),
+  );
+
+  results.forEach(({ planet, averageMass }) => {
+    console.log(`Planet: ${planet.name}`);
+    console.log(`Number of residents: ${planet.residents.length}`);
+    console.log(`Average mass of resident: ${averageMass}`);
+    console.log("");
+  });
 
   // End of your code
   const end = performance.now();
