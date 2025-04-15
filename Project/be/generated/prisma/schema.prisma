@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model MMA_Organization {
+  id       Int       @id @default(autoincrement())
+  name     String
+  country  String
+  fighters Fighter[]
+}
+
+model Fighter {
+  id             Int              @id @default(autoincrement())
+  fname          String
+  lname          String
+  weightClass    String
+  country        String
+  fights         Int
+  wins           Int
+  losses         Int
+  draws          Int
+  organizationId Int
+  organization   MMA_Organization @relation(fields: [organizationId], references: [id])
+}
